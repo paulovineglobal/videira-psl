@@ -16,6 +16,9 @@ services:
       - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
       - N8N_DIAGNOSTICS_ENABLED=false
+      # Necessário para acessar via http://localhost (especialmente no Safari).
+      # Em produção com HTTPS, defina como true no .env.
+      - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE:-false}
     volumes:
       - n8n_data:/home/node/.n8n
 
