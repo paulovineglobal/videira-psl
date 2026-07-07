@@ -6,7 +6,8 @@ services:
     ports:
       - "5678:5678"
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/New_York}
       - TZ=${TZ:-America/New_York}

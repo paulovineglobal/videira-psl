@@ -12,8 +12,14 @@ para automações da igreja (Instagram, YouTube, avisos, integrações com o sit
 
 ```bash
 cd n8n
-cp .env.example .env   # só na primeira vez
 docker compose up -d
+```
+
+O arquivo `.env` é opcional — os padrões já funcionam para uso local. Se quiser
+personalizar (ex.: URL de webhook), copie o modelo:
+
+```bash
+cp .env.example .env
 ```
 
 Acesse **http://localhost:5678** no navegador. Na primeira vez, o n8n pede
