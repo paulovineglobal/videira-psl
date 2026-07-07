@@ -23,13 +23,15 @@ services:
       - n8n_data:/home/node/.n8n
 
   # WAHA: ponte não-oficial para enviar mensagens de WhatsApp (inclusive grupos).
-  # Dashboard em http://localhost:3000/dashboard para conectar via QR code.
+  # Dashboard em http://localhost:3001/dashboard para conectar via QR code.
   waha:
     image: devlikeapro/waha
     container_name: waha
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      # Porta 3001 no Mac para não conflitar com outros apps que usam a 3000;
+      # dentro da rede do Docker o n8n continua acessando http://waha:3000.
+      - "${WAHA_PORT:-3001}:3000"
     environment:
       - WAHA_API_KEY=${WAHA_API_KEY:-videira-psl-local}
       - WHATSAPP_API_KEY=${WAHA_API_KEY:-videira-psl-local}
