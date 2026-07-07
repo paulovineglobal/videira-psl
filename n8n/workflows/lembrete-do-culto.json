@@ -1,0 +1,48 @@
+{
+  "name": "Lembrete do culto (domingo 15h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [0],
+              "triggerAtHour": 15,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "name": "Todo domingo às 15h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://waha:3000/api/sendText",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "X-API-KEY", "value": "videira-psl-local" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"session\": \"default\",\n  \"chatId\": \"COLE_AQUI_O_ID_DO_GRUPO\",\n  \"text\": \"🙏 Hoje tem culto na Videira PSL às 5:30 PM! Venha e traga alguém com você. Te esperamos! 🍇\"\n}",
+        "options": {}
+      },
+      "name": "Enviar no WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    }
+  ],
+  "connections": {
+    "Todo domingo às 15h": {
+      "main": [[{ "node": "Enviar no WhatsApp", "type": "main", "index": 0 }]]
+    }
+  }
+}

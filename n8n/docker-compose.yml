@@ -22,5 +22,26 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
 
+  # WAHA: ponte não-oficial para enviar mensagens de WhatsApp (inclusive grupos).
+  # Dashboard em http://localhost:3000/dashboard para conectar via QR code.
+  waha:
+    image: devlikeapro/waha
+    container_name: waha
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - WAHA_API_KEY=${WAHA_API_KEY:-videira-psl-local}
+      - WHATSAPP_API_KEY=${WAHA_API_KEY:-videira-psl-local}
+      - WAHA_DASHBOARD_USERNAME=${WAHA_DASHBOARD_USERNAME:-admin}
+      - WAHA_DASHBOARD_PASSWORD=${WAHA_DASHBOARD_PASSWORD:-videira2026}
+      - WHATSAPP_RESTART_ALL_SESSIONS=true
+      - TZ=${TZ:-America/New_York}
+    volumes:
+      - waha_sessions:/app/.sessions
+      - waha_media:/app/.media
+
 volumes:
   n8n_data:
+  waha_sessions:
+  waha_media:

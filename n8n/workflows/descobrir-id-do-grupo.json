@@ -1,0 +1,33 @@
+{
+  "name": "Descobrir ID do grupo",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Ao executar",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "http://waha:3000/api/default/groups",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "X-API-KEY", "value": "videira-psl-local" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Listar grupos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    }
+  ],
+  "connections": {
+    "Ao executar": {
+      "main": [[{ "node": "Listar grupos", "type": "main", "index": 0 }]]
+    }
+  }
+}
